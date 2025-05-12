@@ -3,3 +3,4 @@ uvicorn
 python-multipart
 sentence-transformers
 scikit-learn
+flask==2.1.2
