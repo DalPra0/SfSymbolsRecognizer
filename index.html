@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SF Symbol Finder</title>
+</head>
+<body>
+<h1>SF Symbol Finder 🔍</h1>
+<form id="search-form">
+    <input type="text" id="description" placeholder="Describe the symbol..." required />
+    <button type="submit">Search</button>
+</form>
+<div id="results"></div>
+
+<script>
+    document.getElementById("search-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const description = document.getElementById("description").value;
+        const formData = new FormData();
+        formData.append("description", description);
+
+        const response = await fetch("https://YOUR-RENDER-URL.onrender.com/search-text", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "<h3>Top Matches:</h3>" +
+            data.results.map(r => `<div>${r.name} — <i>${r.description}</i></div>`).join("");
+    });
+</script>
+</body>
+</html>
